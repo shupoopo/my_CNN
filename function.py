@@ -57,6 +57,8 @@ def padding(image, zero_num):
 #         return img_out
 
 
+
+
 # 优化的版本
 def conv(img, conv_filter):
     if len(img.shape)!=3 or len(conv_filter.shape)!=4:
