@@ -123,3 +123,12 @@ def pool_delta_error_bp(pool_out_delta, pool_out_max_location, size=2, stride=2)
     delta = np.zeros(np.int((pool_out_delta.shape[0]-1)*stride+size),
                      np.int((pool_out_delta.shape[1]-1)*stride+size),
                      pool_out_delta.shape[2])
+    for ch_num in range(pool_out_delta.shape[-1]):
+        for r in range(pool_out_delta.shape[0]):
+            for c in range(pool_out_delta.shape[1]):
+                order = pool_out_max_location[r,c,ch_num]
+                m = np.int(stride*r + order//size)
+                n = np.int(stride*c + order%size)
+                delta[m, n, ch_num] = pool_out_delta[r, c, ch_num]
+
+    return delta
